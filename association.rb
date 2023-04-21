@@ -25,7 +25,7 @@ class Product
     has_many :categories, through: :category_products
 
     def latest_price 
-        where("date::DATE <= ?", Date.today).order('date DESC').first&.price
+        product_price_histories.find_by(date: Date.today).price || product_price_histories.where("date::DATE <= ?", Date.today).order('date DESC').first&.price
     end
 end
 
